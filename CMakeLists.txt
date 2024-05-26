@@ -16,9 +16,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(Catch2)
 
 set(CPP_SRCS  # all non-main source files
-  matrix.cpp
-  pointers.cpp
-  sort.cpp
+  create_arrays.cpp
+  int_array.cpp
 )
 
 
@@ -32,3 +31,4 @@ foreach(sourcefile ${CPP_SRCS})
            COMMAND ${testexecutable})
 endforeach()
 
+add_executable(main main.cpp create_arrays.cpp int_array.cpp)

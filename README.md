@@ -33,18 +33,21 @@ make -j8
 Implement the following functions:
 
 ```cpp
+/*! Return array on the free store containing `dimension` zeros.
+ *
+ * The memory for the array is allocated on the heap and all values are
+ * initialized to zero.
+ *
+ * eg. zeros(3) -> {0, 0, 0}
+*/
 int* zeros(std::size_t dimension);
+
+//! Return array on the free store containing `dimension` ones.
 int* ones(std::size_t dimension);
+
+//! Return array on the free store containing `0, 1, 2, 3, ..., dimension-1`.
 int* range(std::size_t dimension);
 ```
-
-`zeros(.)` gets the number of desired elements. It must allocate the memory
-for an array of the given number of elements and initialize each element to
-zero.
-
-`ones(.)` does the same as zeros, but sets each value to one.
-
-`range(.)` sets the array to `0, 1, 2, 3, ..., dimension-1`
 
 Name the source file: `create_arrays.cpp` and the corresponding header file
 `create_arrays.hpp`.
@@ -54,7 +57,8 @@ Name the source file: `create_arrays.cpp` and the corresponding header file
 
 Implement a data structure IntArray that helps you to work with arrays of
 dynamic size. The core of the data type should be a struct storing a pointer
-to an array on the free store and the required metadata.
+to an array on the free store and the required metadata. All of your functions
+as well as `IntArray` itself must be placed inside of a namespace called `ia`.
 
 ```cpp
 struct IntArray {
@@ -68,62 +72,69 @@ Implement the following API to create and work with `IntArray`:
 
 ```cpp
 //! Create new empty IntArray for 100 elements.
-IntArray* ia_create();
+IntArray* create();
 
 //! Create new array with `dimension` zeros.
-IntArray* ia_zeros(size_t dimension);
+IntArray* zeros(std::size_t dimension);
 
 //! Create new array with `dimension` ones.
-IntArray* ia_ones(size_t dimension);
+IntArray* ones(std::size_t dimension);
 
 //! Create new array with stop-start elements: start ... stop-1.
-IntArray* ia_range(int start, int stop);
+IntArray* range(int start, int stop);
 
 //! Free the array and the IntArray struct; return `nullptr`.
-IntArray* ia_destruct(IntArray* ia);
+IntArray* destroy(IntArray* ia);
 
 //! Remove and return last element of `ia`
-int ia_pop_back(IntArray* ia);
+int pop_back(IntArray* ia);
 
-/*!
- * Add `elem` to `ia`.
+/*! Add `elem` to `ia`.
+ *
  * If that would exceed the available reserved memory, double the size of
  * the array.
  */
-void ia_push_back(IntArray* ia, int elem);
+void push_back(IntArray* ia, int elem);
+
+/*! Insert `elem` before element at index.
+ *
+ * If that would exceed the available reserved memory, double the size of
+ * the array.
+ */
+void insert(IntArray* ia, std::size_t index, int elem);
 
 //! Return the number of occurrences of `elem` in `ia`.
-size_t ia_count(IntArray* ia, int elem);
+std::size_t count(IntArray* ia, int elem);
 
 /*!
  * Return element at index.
  * If the index is out of bounds, write "IndexError" and some useful context
  * to stderr and terminate the execution of the program.
  */
-int ia_index(IntArray* ia, size_t index);
+int index(IntArray* ia, std::size_t index);
 
 //! Print a representation of the array to stdout.
-void ia_print(IntArray* ia);
+void print(IntArray* ia);
 
 //! Return the current number of elements.
-size_t ia_size(IntArray* ia);
+std::std::size_t size(IntArray* ia);
 
 //! Return the sum of all elements.
-long int ia_sum(IntArray* ia);
+long int sum(IntArray* ia);
 
 /*
  * Return new `IntArray*` where all elements are the pairwise sum of the
  * elements of the given two arrays. If one array is shorter,
  * solely use the elements of the longer array for the higher indices.
  */
-IntArray* ia_add(IntArray* first, IntArray* second);
+IntArray* add(IntArray* first, IntArray* second);
 
 /*
  * Return new `IntArray*` where all elements are the pairwise product of the
  * elements of the given two arrays. If one array is shorter,
  * solely use the elements of the longer array for the higher indices.
  */
-IntArray* ia_mul(IntArray* first, IntArray* second);
+IntArray* mul(IntArray* first, IntArray* second);
 ```
 
 All of the above functions must ensure that the data stored in the struct is

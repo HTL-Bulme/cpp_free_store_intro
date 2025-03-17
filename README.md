@@ -117,7 +117,7 @@ int index(IntArray* ia, std::size_t index);
 void print(IntArray* ia);
 
 //! Return the current number of elements.
-std::std::size_t size(IntArray* ia);
+std::size_t size(IntArray* ia);
 
 //! Return the sum of all elements.
 long int sum(IntArray* ia);

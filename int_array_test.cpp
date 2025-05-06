@@ -295,6 +295,7 @@ TEST_CASE_METHOD(IntArrayFixture, "int_array", "[add]") {
     std::vector<int> expected = {10, 12, 14};
 
     std::vector<int> actual(ia_actual->array, ia_actual->array + 3);
+    CHECK(ia_actual->elements == ia_567->elements);
     CHECK_THAT(actual, Catch::Matchers::Equals(expected));
 
     delete[] ia_actual->array;
@@ -308,6 +309,8 @@ TEST_CASE_METHOD(IntArrayFixture, "int_array", "[add]") {
 
     std::vector<int> first_actual(first->array, first->array + 5);
     std::vector<int> second_actual(second->array, second->array + 5);
+    CHECK(first->elements == ia_12345->elements);
+    CHECK(second->elements == ia_12345->elements);
     CHECK_THAT(first_actual, Catch::Matchers::Equals(expected));
     CHECK_THAT(second_actual, Catch::Matchers::Equals(expected));
 
@@ -321,6 +324,7 @@ TEST_CASE_METHOD(IntArrayFixture, "int_array", "[add]") {
     std::vector<int> expected(ia_567->array, ia_567->array + 3);
     IntArray* ia_actual = add(ia_567, ia_empty);
     std::vector<int> actual(ia_actual->array, ia_actual->array + 3);
+    CHECK(ia_actual->elements == ia_567->elements);
     CHECK_THAT(actual, Catch::Matchers::Equals(expected));
     delete[] ia_actual->array;
     delete ia_actual;
@@ -331,6 +335,7 @@ TEST_CASE_METHOD(IntArrayFixture, "int_array", "[add]") {
 TEST_CASE_METHOD(IntArrayFixture, "int_array", "[mul]") {
   SECTION("same size") {
     IntArray* ia_actual = mul(ia_567, ia_567);
+    CHECK(ia_actual->elements == ia_567->elements);
     std::vector<int> expected = {25, 36, 49};
 
     std::vector<int> actual(ia_actual->array, ia_actual->array + 3);
@@ -343,6 +348,8 @@ TEST_CASE_METHOD(IntArrayFixture, "int_array", "[mul]") {
   SECTION("different size") {
     IntArray* first = mul(ia_567, ia_12345);
     IntArray* second = mul(ia_12345, ia_567);
+    CHECK(first->elements == ia_12345->elements);
+    CHECK(second->elements == ia_12345->elements);
     std::vector<int> expected = {5, 12, 21, 4, 5};
 
     std::vector<int> first_actual(first->array, first->array + 5);
@@ -359,6 +366,7 @@ TEST_CASE_METHOD(IntArrayFixture, "int_array", "[mul]") {
   SECTION("multiply with empty") {
     std::vector<int> expected(ia_567->array, ia_567->array + 3);
     IntArray* ia_actual = mul(ia_567, ia_empty);
+    CHECK(ia_actual->elements == ia_567->elements);
     std::vector<int> actual(ia_actual->array, ia_actual->array + 3);
     CHECK_THAT(actual, Catch::Matchers::Equals(expected));
     delete[] ia_actual->array;

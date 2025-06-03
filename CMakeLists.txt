@@ -1,12 +1,9 @@
 cmake_minimum_required(VERSION 3.18)
 cmake_policy(SET CMP0048 NEW)
-project(cpp_c_strings VERSION 0.1)
+project(cpp_free_store_intro VERSION 0.2)
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wconversion")
+include(CMakeLists.config)
 
-
-include(CTest)
 include(FetchContent)
 FetchContent_Declare(
   Catch2
@@ -20,7 +17,6 @@ set(CPP_SRCS  # all non-main source files
   int_array.cpp
 )
 
-
 foreach(sourcefile ${CPP_SRCS})
   string(REPLACE ".cpp" "_test.cpp" testfile ${sourcefile})
   string(REPLACE ".cpp" "" testexecutable ${testfile})
@@ -31,4 +27,4 @@ foreach(sourcefile ${CPP_SRCS})
            COMMAND ${testexecutable})
 endforeach()
 
-add_executable(main main.cpp create_arrays.cpp int_array.cpp)
+add_executable(main main.cpp ${CPP_SRCS})

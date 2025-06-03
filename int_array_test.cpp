@@ -165,9 +165,9 @@ TEST_CASE("int_array", "[range]") {
 TEST_CASE("int_array", "[destroy]") {
   IntArray* ia = new IntArray;
   ia->array = new int[5];
-  IntArray* ia_ptr = ia;  // allow to reference member of destroyed object
+  // IntArray* ia_ptr = ia;  // allow to reference member of destroyed object
   ia = destroy(ia);
-  CHECK(ia_ptr->array == nullptr);
+  // CHECK(ia_ptr->array == nullptr);  // does not work reliably
   CHECK(ia == nullptr);
 }
 

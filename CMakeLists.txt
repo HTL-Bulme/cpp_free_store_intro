@@ -2,15 +2,7 @@ cmake_minimum_required(VERSION 3.18)
 cmake_policy(SET CMP0048 NEW)
 project(cpp_free_store_intro VERSION 0.2)
 
-include(CMakeLists.config)
-
-include(FetchContent)
-FetchContent_Declare(
-  Catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG        v3.5.1 # or a later release
-)
-FetchContent_MakeAvailable(Catch2)
+include(common.cmake)
 
 set(CPP_SRCS  # all non-main source files
   create_arrays.cpp

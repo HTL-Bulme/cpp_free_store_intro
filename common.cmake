@@ -1,6 +1,4 @@
-if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/catch_amalgamated.cpp")
-  add_library(catch2 catch_amalgamated.cpp)
-endif()
+find_package(Catch2)
 
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_EXTENSIONS OFF)
